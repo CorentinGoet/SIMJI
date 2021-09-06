@@ -2,7 +2,7 @@
 This file contains the program to translate assembly code to binary instructions.
 """
 
-import sys
+
 
 f_instr = open("..//assembly_program_files/test.txt", 'r')     # opening the file
 word = f_instr.readline()
@@ -71,5 +71,5 @@ instr += r_out
 
 # writing result in a file
 f_out = open("../output_files/test.txt", 'w')
-f_out.write(str(instr) + "  ~  " + str(hex(instr)))
+f_out.write(str(instr) + "  ~  " + str(hex(instr)) + " ~ " + str(bin(instr)))
 f_out.close()
