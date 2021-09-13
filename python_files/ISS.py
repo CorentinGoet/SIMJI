@@ -34,6 +34,11 @@ class VM:
 
             return instrNum, (r_a, isANum, o, r_b)
 
+        """elif instrNum == 15:
+            isANum = (instr & 1 << 26) >> 26
+            o = (instr & )"""
+
+
 
     def eval(self, opp, regs):
 
@@ -87,6 +92,10 @@ class VM:
             elif opp == 14:
                 print("STORE")
                 VM.mem[self.regs[r_a] + o] = self.regs[r_b]
+        elif opp == 15:
+            print("JMP")
+            o, r = regs
+
 
 
 

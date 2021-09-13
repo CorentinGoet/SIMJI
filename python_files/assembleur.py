@@ -4,6 +4,22 @@ class Assembleur:
         self.instr_file_name = instr_file_name
         self.oppList = ['STOP', 'ADD', 'SUB', 'MULT', 'DIV', 'AND', 'OR', 'XOR', 'SHL', 'SHR', 'SLT', 'SLE', 'SEQ', 'LOAD', 'STORE', 'JMP', 'BRAZ', 'BRANZ', 'SCALL']
         self.instrList = self.get_instr()
+        self.labels = self.get_labels()
+
+    def get_labels(self):
+        """
+        Récupère les labels et les correspondances avec les lignes.
+        """
+        labelDict = {}  # dictionnaire des labels
+        # on parcours la liste en cherchant les labels
+        for instr in self.instrList:
+            firstWord = instr.split(' ')[0]     # on récupère le 1er mot
+            if firstWord[-1] == ":":   # on considère comme label les 1ers mots qui se terminent par :
+                ind = self.instrList.index(instr)
+                labelDict[firstWord[:-1]] = ind     # on ajoute le label à la liste
+                self.instrList[ind] = self.instrList[ind][len(firstWord):]  # supprime le label de la ligne
+
+        return labelDict
 
 
     def get_instr(self):
@@ -46,9 +62,13 @@ class Assembleur:
 
         elif opp == 15:     # jmp
             o, r = regs.split(",")
+
             if o[0] == "R":
                 isANum = 0
                 o = int(o[1:])
+            elif o[0] == "L":
+                isANum = 1
+                o = int(self.labels[o])
             else:
                 isANum = 1
                 o = int(o)
@@ -57,6 +77,9 @@ class Assembleur:
 
         elif opp in [16, 17]:     # braz ou branz
             r, a = regs.split(",")
+            if a[0] == "L":     # si a est un label on le remplace par le num de ligne
+                a = self.labels[a]
+
             return int(r[1:]), int(a)
 
         elif opp == 18:     # scall

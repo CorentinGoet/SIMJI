@@ -1,7 +1,12 @@
 from assembleur import Assembleur
 from ISS import VM
 
+
+
 asm = Assembleur("../assembly_program_files/test.txt")
+
+
+"""
 for i in range(len(asm.instrList)):
     instr = asm.getInstrNum(i)
     asm.writeInstr(instr, i)
@@ -9,4 +14,4 @@ for i in range(len(asm.instrList)):
 
 vm = VM("../output_files/test.txt")
 vm.run()
-print(VM.mem)
+print(VM.mem)"""
