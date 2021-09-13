@@ -41,6 +41,11 @@ class VM:
 
             return instrNum, (isANum, o, r)
 
+        elif instrNum in [16, 17]:
+            r = (instr & (0b11111 << 22)) >> 22
+            a = instr & ((1 << 22) - 1)
+            return instrNum, (r, a)
+
 
 
     def eval(self, opp, regs):
@@ -98,9 +103,26 @@ class VM:
         elif opp == 15:
             print("JMP")
             isANum, o, r = regs
-            print(o)
             self.regs[r] = o
             self.pc = o
+
+        elif opp == 16:
+            print("BRAZ")
+            r, a = regs
+            print("registre {} : {}".format(r, self.regs[r]))
+            if self.regs[r] == 0:
+                print("branchement vers ", a)
+                self.pc = a
+
+        elif opp == 17:
+            print("BRANZ")
+            r, a = regs
+            if not(self.regs[r] == 0):
+                print("branchement vers ", a)
+                self.pc = a
+
+
+
 
 
 
@@ -115,4 +137,5 @@ class VM:
             instr = self.fetch()
             opp, regs = self.decode(instr)
             self.eval(opp, regs)
+            print("registres :", self.regs)
             print("line {} OK".format(i))

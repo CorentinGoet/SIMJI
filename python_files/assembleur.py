@@ -79,7 +79,7 @@ class Assembleur:
         elif opp in [16, 17]:     # braz ou branz
             r, a = regs.split(",")
             if a[0] == "L":     # si a est un label on le remplace par le num de ligne
-                a = self.labels[a]
+                a = self.labels[a.strip("\n")]
 
             return int(r[1:]), int(a)
 

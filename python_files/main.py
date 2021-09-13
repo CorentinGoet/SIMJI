@@ -3,7 +3,7 @@ from ISS import VM
 
 
 
-asm = Assembleur("../assembly_program_files/test_jmp.txt")
+asm = Assembleur("../assembly_program_files/test_branch.txt")
 
 
 for i in range(len(asm.instrList)):
