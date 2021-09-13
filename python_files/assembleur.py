@@ -17,7 +17,7 @@ class Assembleur:
             if firstWord[-1] == ":":   # on considère comme label les 1ers mots qui se terminent par :
                 ind = self.instrList.index(instr)
                 labelDict[firstWord[:-1]] = ind     # on ajoute le label à la liste
-                self.instrList[ind] = self.instrList[ind][len(firstWord):]  # supprime le label de la ligne
+                self.instrList[ind] = self.instrList[ind][len(firstWord) +1:]  # supprime le label de la ligne
 
         return labelDict
 
@@ -35,6 +35,7 @@ class Assembleur:
 
         word = self.instrList[n]
         oppTxt = word.split(" ")[0]
+        print(oppTxt)
         return self.oppList.index(oppTxt)
 
     def get_regs(self, n, opp):

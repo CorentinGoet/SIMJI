@@ -34,9 +34,12 @@ class VM:
 
             return instrNum, (r_a, isANum, o, r_b)
 
-        """elif instrNum == 15:
+        elif instrNum == 15:
             isANum = (instr & 1 << 26) >> 26
-            o = (instr & )"""
+            o = (instr & (0xFFFFFF0 ^ (0b11 << 26))) >> 5
+            r = (instr & 0b1111)
+
+            return instrNum, (isANum, o, r)
 
 
 
@@ -94,7 +97,12 @@ class VM:
                 VM.mem[self.regs[r_a] + o] = self.regs[r_b]
         elif opp == 15:
             print("JMP")
-            o, r = regs
+            isANum, o, r = regs
+            print(o)
+            self.regs[r] = o
+            self.pc = o
+
+
 
 
 
@@ -102,6 +110,9 @@ class VM:
     def run(self):
         self.running = True
         while self.running:
+            i = self.pc
+            print("line {} started".format(i))
             instr = self.fetch()
             opp, regs = self.decode(instr)
             self.eval(opp, regs)
+            print("line {} OK".format(i))
