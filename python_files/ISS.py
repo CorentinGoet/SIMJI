@@ -121,14 +121,6 @@ class VM:
                 print("branchement vers ", a)
                 self.pc = a
 
-
-
-
-
-
-
-
-
     def run(self):
         self.running = True
         while self.running:
