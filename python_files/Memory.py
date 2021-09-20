@@ -1,14 +1,14 @@
 """
 Fichier contenant les classes de modélisation de la mémoire.
 """
-import numpy as np
+
 
 
 class Memory:
 
     def __init__(self, size=1024):
         self.size = size
-        self.mem = np.zeros(self.size)
+        self.mem = [0] * self.size
 
 
     def write(self, address, data):
@@ -46,6 +46,16 @@ class Memory:
     def check_data(self,  address, data):
         pass
 
+    def __str__(self):
+        s = "Memory : \n"
+        for i in range(self.size):
+            s += str(hex(i))
+            s += " "
+            s += str(hex(self.mem[i]))
+            s += "\n"
+        return s
+
+
 
 class Cache:
     """
@@ -58,14 +68,14 @@ class Cache:
     def __init__(self, memory, size=16):
         self.nb_lignes = size
         self.nb_blocs = 8
-        self.lines = np.zeros(self.size)
+        self.lines = []
         self.setup()
         self.memory = memory
 
     def setup(self):
         for i in range(self.nb_lignes):
             l = Line_cache()
-            self.lines[i] = l
+            self.lines.append(l)
 
 
     def write(self, address, data):
@@ -124,6 +134,15 @@ class Cache:
 
         return tag, index, b
 
+    def __str__(self):
+        s = "Cache : \n"
+        for i in range(self.nb_lignes):
+            l = self.lines[i]
+            s += str(bin(l.tag)) + " " + str(l.valid) + " " + str(bin(i)) + " "
+            for j in range(self.nb_blocs):
+                s += str(hex(l.blocs[j])) + " "
+            s += "\n"
+        return s
 
 
 
