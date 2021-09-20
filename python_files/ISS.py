@@ -1,10 +1,14 @@
+import Memory
+
+
 class VM:
-    mem = [0]*1024    # mémoire de données
-    def __init__(self, programFile):
+
+    def __init__(self, programFile, cache):
         self.regs = [0] * 32  # 32 registers
         self.prog = self.progLoad(programFile)
         self.pc = 0
         self.running = False
+        self.cache = cache
 
 
     def progLoad(self, fileName):
@@ -96,10 +100,10 @@ class VM:
                 self.regs[r_b] = int(self.regs[r_a] == o)
             elif opp == 13:
                 print("LOAD")
-                self.regs[r_b] = VM.mem[self.regs[r_a] + o]
+                self.regs[r_b] = self.cache.read(self.regs[r_a] + o)
             elif opp == 14:
                 print("STORE")
-                VM.mem[self.regs[r_a] + o] = self.regs[r_b]
+                self.cache.write_through(self.regs[r_a] + o, self.regs[r_b])
         elif opp == 15:
             print("JMP")
             isANum, o, r = regs

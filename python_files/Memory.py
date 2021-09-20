@@ -55,7 +55,7 @@ class Cache:
     Il reste donc 3 bits pour le tag.
     """
 
-    def __init__(self, size, memory):
+    def __init__(self, memory, size=16):
         self.nb_lignes = size
         self.nb_blocs = 8
         self.lines = np.zeros(self.size)
@@ -123,6 +123,8 @@ class Cache:
         b = (address & 0b111)  # l'offset correspond aux bits 0,1 et 2
 
         return tag, index, b
+
+
 
 
 class Line_cache:

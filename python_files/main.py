@@ -1,15 +1,15 @@
 from assembleur import Assembleur
 from ISS import VM
-
+from Memory import Cache, Memory
 
 asm = Assembleur("../assembly_program_files/test_branch.txt")
-
+cache = Cache(Memory())
 
 for i in range(len(asm.instrList)):
     instr = asm.getInstrNum(i)
     asm.writeInstr(instr, i)
     print(i)
 
-vm = VM("../output_files/test.txt")
+vm = VM("../output_files/test.txt", cache)
 vm.run()
 print(VM.lines)
