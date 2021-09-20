@@ -138,7 +138,7 @@ class Cache:
         s = "Cache : \n"
         for i in range(self.nb_lignes):
             l = self.lines[i]
-            s += str(bin(l.tag)) + " " + str(l.valid) + " " + str(bin(i)) + " "
+            s += str(hex(i)) + " " + str(bin(l.tag)) + " " + str(l.valid) + " " + str(bin(i)) + " "
             for j in range(self.nb_blocs):
                 s += str(hex(l.blocs[j])) + " "
             s += "\n"
