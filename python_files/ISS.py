@@ -36,7 +36,6 @@ class VM:
             isANum = (instr & (1 << 21)) >> 21
             o = (instr & (0B111111111111111 << 5)) >> 5
             r_b = instr & 0B1111
-
             binary_string_o = bin(o)[2:].rjust(15,'0')
             print('o string ', binary_string_o)
             if binary_string_o[0] == '1':
@@ -132,6 +131,8 @@ class VM:
             if not(self.regs[r] == 0):
                 print("branchement vers ", a)
                 self.pc = a
+
+
 
     def run(self):
         self.running = True

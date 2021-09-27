@@ -102,6 +102,10 @@ class Assembleur:
 
         elif 1 <= opp <= 14:
             r_a, r_b, r_out, isANum = regs
+
+            while not - (1 << 16) < r_b < (1 << 16) - 1:
+                r_b -= 1 << 16
+
             if r_b < 0:
                 r_b = (1 << 16) + r_b
                 print("nombre négatif ", r_b, bin(r_b))
