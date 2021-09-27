@@ -16,4 +16,4 @@ for i in range(len(asm.instrList)):
 vm = VM("../output_files/instructions.hex", cache)
 vm.run()
 print(cache)
-#print(cache.memory)
+print(cache.memory)

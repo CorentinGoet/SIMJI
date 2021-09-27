@@ -18,6 +18,8 @@ class Memory:
         :param data: donnée à écrire.
         :return: None
         """
+        if data < 0:
+            data = (1 << 32) + data
         self.mem[address] = data
 
     def read(self, address):
@@ -47,10 +49,11 @@ class Memory:
         pass
 
     def __str__(self):
-        s = "Memory : \n"
+        s = "#"*50 + "\n"
+        s += "---------   Memory   --------- \n"
+        s += "Address".ljust(9, ' ') + "Value \n"
         for i in range(self.size):
-            s += str(hex(i))
-            s += " "
+            s += str(hex(i)).ljust(9, ' ')
             s += str(hex(self.mem[i]))
             s += "\n"
         return s
