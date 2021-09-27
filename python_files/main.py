@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from assembleur import Assembleur
 from ISS import VM
 from Memory import Cache, Memory
