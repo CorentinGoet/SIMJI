@@ -4,7 +4,7 @@ from assembleur import Assembleur
 from ISS import VM
 from Memory import Cache, Memory
 
-asm = Assembleur("../assembly_program_files/test_negatif.asm")
+asm = Assembleur("../assembly_program_files/test_scall.asm")
 cache = Cache(Memory())
 
 print(cache)

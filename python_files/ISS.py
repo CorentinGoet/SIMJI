@@ -56,6 +56,11 @@ class VM:
             a = instr & ((1 << 22) - 1)
             return instrNum, (r, a)
 
+        elif instrNum == 18:
+            a = instr & ((1 << 26) - 1)
+            print("A :", a)
+            return instrNum, a
+
 
 
     def eval(self, opp, regs):
@@ -132,7 +137,13 @@ class VM:
                 print("branchement vers ", a)
                 self.pc = a
 
-
+        elif opp == 18:
+            print("SCALL")
+            action = regs
+            if action == 0:
+                print("R1 : ", self.regs[1])
+            else:
+                self.regs[1] = int(input("R1 : "))
 
     def run(self):
         self.running = True
