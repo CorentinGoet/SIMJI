@@ -141,7 +141,7 @@ class Assembleur:
 
 
     def writeInstr(self, instr, n):
-        f = open("../output_files/test.txt", 'a')
+        f = open("../output_files/instructions.hex", 'a')
         f.write("0x" + str(n) + " " + str(hex(instr)) + " " + str(bin(instr)) + "\n")
         f.close()
 

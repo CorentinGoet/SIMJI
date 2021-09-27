@@ -13,7 +13,7 @@ for i in range(len(asm.instrList)):
     asm.writeInstr(instr, i)
     print(i)
 
-vm = VM("../output_files/test.txt", cache)
+vm = VM("../output_files/instructions.hex", cache)
 vm.run()
 print(cache)
 #print(cache.memory)
