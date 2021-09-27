@@ -137,13 +137,20 @@ class Cache:
         return tag, index, b
 
     def __str__(self):
-        s = "Cache : \n"
+        s = "#"*50 + "\n"
+        s += " ---------  CACHE  ---------  \n"
+        s += "adresse" + " " + "tag".ljust(5, " ") + "valid "
+        for i in range(self.nb_blocs):
+            s += "Bloc " + str(i) + " "*6
+        s += '\n'
         for i in range(self.nb_lignes):
             l = self.lines[i]
-            s += str(hex(i)) + " " + str(bin(l.tag)) + " " + str(l.valid) + " " + str(bin(i)) + " "
+            s += str(hex(i)).ljust(8, ' ') + str(bin(l.tag)).ljust(5, " ") + str(l.valid).ljust(6, ' ')
             for j in range(self.nb_blocs):
-                s += str(hex(l.blocs[j])) + " "
+                s += str(hex(l.blocs[j])).ljust(12, ' ')
             s += "\n"
+
+        s += "#"*50
         return s
 
 
