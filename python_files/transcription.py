@@ -4,7 +4,7 @@ This file contains the program to translate assembly code to binary instructions
 
 
 
-f_instr = open("..//assembly_program_files/test.txt", 'r')     # opening the file
+f_instr = open("../assembly_program_files/test.asm", 'r')     # opening the file
 word = f_instr.readline()
 f_instr.close()
 

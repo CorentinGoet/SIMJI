@@ -16,7 +16,8 @@ class VM:
         instrList = f.readlines()
 
         for i in range(len(instrList)):
-            instrList[i] = int(instrList[i].split(" ")[1][:-1], 16)
+            print(instrList[i])
+            instrList[i] = int(instrList[i].split(" ")[1], 16)
         return instrList
 
     def fetch(self):
@@ -35,6 +36,12 @@ class VM:
             isANum = (instr & (1 << 21)) >> 21
             o = (instr & (0B111111111111111 << 5)) >> 5
             r_b = instr & 0B1111
+
+            binary_string_o = bin(o)[2:].rjust(15,'0')
+            print('o string ', binary_string_o)
+            if binary_string_o[0] == '1':
+                o -= (1 << 15)
+
 
             return instrNum, (r_a, isANum, o, r_b)
 
@@ -61,6 +68,7 @@ class VM:
             r_a, isANum, o, r_b = regs
             if isANum == 0:
                 o = self.regs[o]
+            print(bin(o)[2:].rjust(15, '0'))
 
             if opp == 1:
                 print("ADD")

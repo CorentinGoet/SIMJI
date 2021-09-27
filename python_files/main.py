@@ -4,7 +4,7 @@ from assembleur import Assembleur
 from ISS import VM
 from Memory import Cache, Memory
 
-asm = Assembleur("../assembly_program_files/test_branch.txt")
+asm = Assembleur("../assembly_program_files/test_negatif.asm")
 cache = Cache(Memory())
 
 print(cache)
@@ -16,4 +16,4 @@ for i in range(len(asm.instrList)):
 vm = VM("../output_files/test.txt", cache)
 vm.run()
 print(cache)
-print(cache.memory)
+#print(cache.memory)

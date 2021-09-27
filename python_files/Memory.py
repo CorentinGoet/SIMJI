@@ -88,6 +88,8 @@ class Cache:
         # récupération des infos dans l'adresse
         tag, index, b = self.address_param(address)
         line = self.lines[index]
+        if data < 0:
+            data = (1 << 32) + data
         line.blocs[b] = data
 
 

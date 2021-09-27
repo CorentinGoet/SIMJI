@@ -102,6 +102,9 @@ class Assembleur:
 
         elif 1 <= opp <= 14:
             r_a, r_b, r_out, isANum = regs
+            if r_b < 0:
+                r_b = (1 << 16) + r_b
+                print("nombre négatif ", r_b, bin(r_b))
             instr = 0
             instr += opp << 27
             instr += r_a << 22
@@ -135,7 +138,7 @@ class Assembleur:
 
     def writeInstr(self, instr, n):
         f = open("../output_files/test.txt", 'a')
-        f.write("0x" + str(n) + " " + str(hex(instr)) + "\n")
+        f.write("0x" + str(n) + " " + str(hex(instr)) + " " + str(bin(instr)) + "\n")
         f.close()
 
 
