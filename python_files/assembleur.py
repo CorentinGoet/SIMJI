@@ -35,7 +35,6 @@ class Assembleur:
 
         word = self.instrList[n]
         oppTxt = word.split(" ")[0]
-        print(oppTxt)
         return self.oppList.index(oppTxt)
 
     def get_regs(self, n, opp):
@@ -108,7 +107,6 @@ class Assembleur:
 
             if r_b < 0:
                 r_b = (1 << 16) + r_b
-                print("nombre négatif ", r_b, bin(r_b))
             instr = 0
             instr += opp << 27
             instr += r_a << 22
