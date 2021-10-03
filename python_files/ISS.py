@@ -16,7 +16,6 @@ class VM:
         instrList = f.readlines()
 
         for i in range(len(instrList)):
-            print(instrList[i])
             instrList[i] = int(instrList[i].split(" ")[1], 16)
         return instrList
 
@@ -37,7 +36,6 @@ class VM:
             o = (instr & (0B111111111111111 << 5)) >> 5
             r_b = instr & 0B1111
             binary_string_o = bin(o)[2:].rjust(15,'0')
-            print('o string ', binary_string_o)
             if binary_string_o[0] == '1':
                 o -= (1 << 15)
 
@@ -58,7 +56,6 @@ class VM:
 
         elif instrNum == 18:
             a = instr & ((1 << 26) - 1)
-            print("A :", a)
             return instrNum, a
 
 
@@ -66,79 +63,56 @@ class VM:
     def eval(self, opp, regs):
 
         if opp == 0:
-            print("STOP")
             self.running = 0
         elif 1 <= opp <= 14:
             r_a, isANum, o, r_b = regs
             if isANum == 0:
                 o = self.regs[o]
-            print(bin(o)[2:].rjust(15, '0'))
 
             if opp == 1:
-                print("ADD")
                 self.regs[r_b] = self.regs[r_a] + o
             elif opp == 2:
-                print("SUB")
                 self.regs[r_b] = self.regs[r_a] - o
             elif opp == 3:
-                print("MULT")
                 self.regs[r_b] =self.regs[r_a] * o
             elif opp == 4:
-                print("DIV")
                 self.regs[r_b] = self.regs[r_a] // o
             elif opp == 5:
-                print("AND")
                 self.regs[r_b] = self.regs[r_a] & o
             elif opp == 6:
-                print("OR")
                 self.regs[r_b] = self.regs[r_a] | o
             elif opp == 7:
-                print("XOR")
                 self.regs[r_b] = self.regs[r_a] ^ o
             elif opp == 8:
-                print("SHL")
                 self.regs[r_b] = self.regs[r_a] << o
             elif opp == 9:
-                print("SHR")
                 self.regs[r_b] = self.regs[r_a] >> o
             elif opp == 10:
-                print("SLT")
                 self.regs[r_b] = int(self.regs[r_a] < o)
             elif opp == 11:
-                print("SLE")
                 self.regs[r_b] = int(self.regs[r_a] <= o)
             elif opp == 12:
-                print("SEQ")
                 self.regs[r_b] = int(self.regs[r_a] == o)
             elif opp == 13:
-                print("LOAD")
                 self.regs[r_b] = self.cache.read(self.regs[r_a] + o)
             elif opp == 14:
-                print("STORE")
                 self.cache.write_through(self.regs[r_a] + o, self.regs[r_b])
         elif opp == 15:
-            print("JMP")
             isANum, o, r = regs
             self.regs[r] = o
             self.pc = o
 
         elif opp == 16:
-            print("BRAZ")
             r, a = regs
-            print("registre {} : {}".format(r, self.regs[r]))
             if self.regs[r] == 0:
-                print("branchement vers ", a)
                 self.pc = a
 
         elif opp == 17:
-            print("BRANZ")
             r, a = regs
             if not(self.regs[r] == 0):
-                print("branchement vers ", a)
                 self.pc = a
 
         elif opp == 18:
-            print("SCALL")
             action = regs
             if action == 0:
                 print("R1 : ", self.regs[1])
@@ -149,9 +123,9 @@ class VM:
         self.running = True
         while self.running:
             i = self.pc
-            print("line {} started".format(i))
+            #print("line {} started".format(i))
             instr = self.fetch()
             opp, regs = self.decode(instr)
             self.eval(opp, regs)
             print("registres :", self.regs)
-            print("line {} OK".format(i))
+            #print("line {} OK".format(i))
