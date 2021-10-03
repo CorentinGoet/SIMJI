@@ -42,11 +42,30 @@ class Memory:
             res.append(self.read(address + i))     # on ajoute au résultat la donnée correspondant aux adresses
         return res
 
-    def check_address(self, address):
-        pass
+    def loadMem(self, fileName):
+        """
+        Chargement de la mémoire à partir d'un fichier.
+        :param fileName: nom du fichier contenant la mémoire.
+        :return: None
+        """
 
-    def check_data(self,  address, data):
-        pass
+        f = open(fileName, 'r')
+        memList = f.readlines()
+        f.close()
+        for i in range(len(memList)):
+            data = memList[i].split(" ")[1]
+            self.write(i, int(data, 16))
+
+    def writeMem(self, outputFile):
+        """
+        Ecrit le contenu de la mémoire dans le fichier outputFile.
+        :param outputFile: nom du fichier de sortie
+        :return: None
+        """
+        f = open(outputFile, 'w')
+        for i in range(len(self.mem)):
+            f.write(str(hex(i)) + " " + str(hex(self.mem[i])) + " \n")
+        f.close()
 
     def __str__(self):
         s = "#"*50 + "\n"
@@ -57,6 +76,25 @@ class Memory:
             s += str(hex(self.mem[i]))
             s += "\n"
         return s
+
+    def displayMem(self, n=10):
+        """
+        Affichage partiel de la mémoire.
+        :param n: nombre de lignes à afficher
+        :return: None
+        """
+        s = "#" * 50 + "\n"
+        s += "---------   Memory   --------- \n"
+        s += "Address".ljust(9, ' ') + "Value \n"
+        for i in range(min(self.size, n)):
+            s += str(hex(i)).ljust(9, ' ')
+            s += str(hex(self.mem[i]))
+            s += "\n"
+
+        if self.size > n:
+            s += "...\n"
+
+        print(s)
 
 
 

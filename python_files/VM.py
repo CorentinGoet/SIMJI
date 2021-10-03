@@ -123,9 +123,7 @@ class VM:
         self.running = True
         while self.running:
             i = self.pc
-            #print("line {} started".format(i))
             instr = self.fetch()
             opp, regs = self.decode(instr)
             self.eval(opp, regs)
-            print("registres :", self.regs)
-            #print("line {} OK".format(i))
+
