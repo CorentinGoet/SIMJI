@@ -28,10 +28,13 @@ if __name__ == "__main__":
             # Traduction en binaire du fichier assembleur
             try:
                 fileName = sys.argv[1]
+                print("Ouverture du fichier ...")
                 asm = Assembleur(fileName)
+                print("Traduction ...")
                 for i in range(len(asm.instrList)):
                     instr = asm.getInstrNum(i)
                     asm.writeInstr(instr, i)
+                print("Traduction terminée.")
 
             except FileNotFoundError:
                 print("Fichier introuvable.")
@@ -52,6 +55,8 @@ if __name__ == "__main__":
             for i in range(len(asm.instrList)):
                 instr = asm.getInstrNum(i)
                 asm.writeInstr2(instr, i, outputFile)
+
+            print("Exécution terminée")
 
         except FileNotFoundError:
             print("Fichier introuvable.")

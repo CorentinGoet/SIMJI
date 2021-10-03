@@ -25,7 +25,7 @@ if __name__ == '__main__':
                   "./iss monFichier.hex memoire.hex\n" +
                   "\t Execute les instructions du programme monFichier.hex à partir de la mémoire fournie dans le fichier memoire.hex." +
                   "\n \n La mémoire finale est stockée sous output_files/memoire.hex. \n" +
-                  "Options :"
+                  "Options :\n"
                   "\t -c : affiche le cache. \n" +
                   "\t -m : affiche le début de la mémoire. \n" +
                   "\t -ma : affiche toute la mémoire.")
@@ -43,6 +43,9 @@ if __name__ == '__main__':
                 vm.run()
                 print("Ecriture du fichier de mémoire ...")
                 vm.cache.memory.writeMem("../output_files/memoire.hex")
+
+                print("Exécution terminée")
+
             except FileNotFoundError:
                 print("Fichier introuvable.")
             except Exception as e:
@@ -71,6 +74,8 @@ if __name__ == '__main__':
                 elif 'm' in sys.argv[2]:
                     vm.cache.memory.displayMem()
 
+                print("Exécution terminée")
+
             except FileNotFoundError:
                 print("Fichier introuvable.")
             except Exception:
@@ -91,6 +96,9 @@ if __name__ == '__main__':
                 vm.run()
                 print("Ecriture du fichier de mémoire ...")
                 vm.cache.memory.writeMem("../output_files/memoire.hex")
+
+                print("Exécution terminée")
+
             except FileNotFoundError:
                 print("Fichier introuvable.")
             except Exception as e:
@@ -118,6 +126,8 @@ if __name__ == '__main__':
                 print(vm.cache.memory)
             elif 'm' in sys.argv[3]:
                 vm.cache.memory.displayMem()
+
+            print("Exécution terminée")
 
         except FileNotFoundError:
             print("Fichier introuvable.")
