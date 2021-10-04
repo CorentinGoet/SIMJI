@@ -76,12 +76,10 @@ class Assembleur:
             self.instrList[i] = instr
 
         # suppression des lignes vides
-        print(self.instrList)
         while "" in self.instrList:
             self.instrList.remove("")
         while "\n" in self.instrList:
             self.instrList.remove("\n")
-        print(self.instrList)
 
     def get_instr(self):
         f = open(self.instr_file_name, 'r')
@@ -96,7 +94,6 @@ class Assembleur:
 
         word = self.instrList[n]
         oppTxt = word.split(" ")[0]
-        print(oppTxt)
 
         try:
             oppTxt = oppTxt.strip("\n")
@@ -107,24 +104,22 @@ class Assembleur:
         try:
             ind = self.oppListOld.index(oppTxt)
         except Exception as e:
-            print("pas de correspondance maj")
+            pass
 
 
         # essai avec la syntaxe minuscule
         try:
             ind = self.oppListNew.index(oppTxt)
         except Exception as e:
-            print("pas de correspondance min")
+            pass
         return ind
 
     def get_regs(self, n, opp):
         word = self.instrList[n]
         if opp != 0:
-            print("word: ", word)
             tmp = word.split(" ")
 
             while len(tmp) > 2:
-                print('erreur tmp:', tmp)
                 lastElement = tmp.pop()
                 tmp[-1] = tmp[-1] + lastElement
 
@@ -137,7 +132,6 @@ class Assembleur:
         if 1 <= opp <= 14:  # operations à 3 arguments
 
             regs = regs.split(",")
-            print("regs: ", regs)
             r_a = int(regs[0][1:])
             r_b = regs[1]
             r_out = int(regs[-1][1:])
@@ -168,13 +162,12 @@ class Assembleur:
 
         elif opp in [16, 17]:     # braz ou branz
             r, a = regs.split(",")
-            print("a:", a)
             if a[0] == "L":     # si a est un label on le remplace par le num de ligne
                 try:
                     a = a.strip("\n")
                 except Exception as e:
                     pass
-                print(self.labels)
+
                 a = self.labels[a]
             return int(r[1:]), int(a)
 
