@@ -39,9 +39,8 @@ if __name__ == "__main__":
             except FileNotFoundError:
                 print("Fichier introuvable.")
 
-            except Exception as e:
-                print("Erreur d'exécution.")
-                print(e)
+            #except Exception as e:
+
 
     elif len(sys.argv) == 3:
         inputFile = sys.argv[1]

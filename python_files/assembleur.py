@@ -2,10 +2,12 @@ class Assembleur:
 
     def __init__(self, instr_file_name):
         self.instr_file_name = instr_file_name
-        self.oppList = ['STOP', 'ADD', 'SUB', 'MULT', 'DIV', 'AND', 'OR', 'XOR', 'SHL', 'SHR', 'SLT', 'SLE', 'SEQ', 'LOAD', 'STORE', 'JMP', 'BRAZ', 'BRANZ', 'SCALL']
+        self.oppListOld = ['STOP', 'ADD', 'SUB', 'MULT', 'DIV', 'AND', 'OR', 'XOR', 'SHL', 'SHR', 'SLT', 'SLE', 'SEQ', 'LOAD', 'STORE', 'JMP', 'BRAZ', 'BRANZ', 'SCALL']
+        self.oppListNew = ['stop', 'add', 'sub', 'mul', 'div', 'and', 'or', 'xor', 'shl', 'shr', 'slt', 'sle', 'seq', 'load', 'store', 'jmp', 'braz', 'branz', 'scall']
         self.instrList = self.get_instr()
         self.removeComments()
         self.labels = self.get_labels()
+        #self.removeComments()
 
     def get_labels(self):
         """
@@ -15,10 +17,16 @@ class Assembleur:
         # on parcours la liste en cherchant les labels
         for instr in self.instrList:
             firstWord = instr.split(' ')[0]     # on récupère le 1er mot
+
+            if ":\n" in firstWord:
+                ind = self.instrList.index(instr)
+                self.instrList.pop(ind)
+                labelDict[firstWord[:-2]] = ind
+
             if firstWord[-1] == ":":   # on considère comme label les 1ers mots qui se terminent par :
                 ind = self.instrList.index(instr)
                 labelDict[firstWord[:-1]] = ind     # on ajoute le label à la liste
-                self.instrList[ind] = self.instrList[ind][len(firstWord) +1:]  # supprime le label de la ligne
+                self.instrList[ind] = self.instrList[ind][len(firstWord) + 1:]  # supprime le label de la ligne
 
         return labelDict
 
@@ -50,23 +58,30 @@ class Assembleur:
             except Exception as e:
                 pass
 
-            # suppression des espaces en fin de ligne
-
+        # suppression des espaces en début et fin de ligne + retour fin de ligne
         for i in range(len(self.instrList)):
 
             instr = self.instrList[i]
+
+            if instr[-2:] == "\n":
+                instr = instr[:-2]
+
+
             while len(instr) > 0 and instr[-1] == ' ':
                 instr = instr[:-1]
+
+            while len(instr) > 0 and instr[0] == ' ':
+                instr = instr[1:]
+
             self.instrList[i] = instr
 
         # suppression des lignes vides
-        for instr in self.instrList:
-            if instr == "":
-                self.instrList.remove(instr)
-
-
-
-
+        print(self.instrList)
+        while "" in self.instrList:
+            self.instrList.remove("")
+        while "\n" in self.instrList:
+            self.instrList.remove("\n")
+        print(self.instrList)
 
     def get_instr(self):
         f = open(self.instr_file_name, 'r')
@@ -81,24 +96,54 @@ class Assembleur:
 
         word = self.instrList[n]
         oppTxt = word.split(" ")[0]
-        return self.oppList.index(oppTxt)
+        print(oppTxt)
+
+        try:
+            oppTxt = oppTxt.strip("\n")
+        except Exception as e:
+            pass
+
+        # essai avec la syntaxe majuscule
+        try:
+            ind = self.oppListOld.index(oppTxt)
+        except Exception as e:
+            print("pas de correspondance maj")
+
+
+        # essai avec la syntaxe minuscule
+        try:
+            ind = self.oppListNew.index(oppTxt)
+        except Exception as e:
+            print("pas de correspondance min")
+        return ind
 
     def get_regs(self, n, opp):
         word = self.instrList[n]
         if opp != 0:
-            trash, regs = word.split(" ")
+            print("word: ", word)
+            tmp = word.split(" ")
+
+            while len(tmp) > 2:
+                print('erreur tmp:', tmp)
+                lastElement = tmp.pop()
+                tmp[-1] = tmp[-1] + lastElement
+
+            if "" in tmp:
+                tmp.remove("")
+            trash, regs = tmp[0], tmp[1]
         else:
             regs = 0
 
         if 1 <= opp <= 14:  # operations à 3 arguments
 
             regs = regs.split(",")
+            print("regs: ", regs)
             r_a = int(regs[0][1:])
             r_b = regs[1]
             r_out = int(regs[-1][1:])
 
             # determines whether r_b is a register or a number
-            if r_b[0] == "R":
+            if r_b[0] in ['r', 'R']:
                isANum = 0
                r_b = int(r_b[1:])
             else:
@@ -109,7 +154,7 @@ class Assembleur:
         elif opp == 15:     # jmp
             o, r = regs.split(",")
 
-            if o[0] == "R":
+            if o[0] in ["R", 'r']:
                 isANum = 0
                 o = int(o[1:])
             elif o[0] == "L":
@@ -123,9 +168,14 @@ class Assembleur:
 
         elif opp in [16, 17]:     # braz ou branz
             r, a = regs.split(",")
+            print("a:", a)
             if a[0] == "L":     # si a est un label on le remplace par le num de ligne
-                a = self.labels[a.strip("\n")]
-
+                try:
+                    a = a.strip("\n")
+                except Exception as e:
+                    pass
+                print(self.labels)
+                a = self.labels[a]
             return int(r[1:]), int(a)
 
         elif opp == 18:     # scall
@@ -190,12 +240,12 @@ class Assembleur:
             f = open("../instruction_files/instructions.hex", 'w')
         else:
             f = open("../instruction_files/instructions.hex", 'a')
-        f.write("0x" + str(n) + " " + str(hex(instr)) + " " + "\n")
+        f.write(str(hex(n)) + " " + str(hex(instr)) + " " + "\n")
         f.close()
 
     def writeInstr2(self, instr, n, outputFile):
         f = open(outputFile, 'a')
-        f.write("0x" + str(n) + " " + str(hex(instr)) + " " + "\n")
+        f.write(str(hex(n)) + " " + str(hex(instr)) + " " + "\n")
         f.close()
 
 

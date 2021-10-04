@@ -6,7 +6,7 @@
     mul r10,r10,r11 ; OFFSET in R11 for storing result
 
 ; start of the multiplication...
-    add  r0,0,r1   ; i=0
+    add r0,0,r1   ; i=0
 
 L5: slt  r1,r10,r2   ; i < N
     braz r2, Label_end

@@ -125,5 +125,7 @@ class VM:
             i = self.pc
             instr = self.fetch()
             opp, regs = self.decode(instr)
+            print("operation ", opp)
+
             self.eval(opp, regs)
 
