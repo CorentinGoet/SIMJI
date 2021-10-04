@@ -6,7 +6,7 @@
 chmod +x python_files/asm.py
 chmod +x python_files/iss.py
 
-mv python_files/asm.py python_files/asm
-mv python_files/iss.py python_files/iss
+mv python_files/asm.py ./asm
+mv python_files/iss.py ./iss
 
 echo "Installation terminée, essayez ./asm ou ./iss !"

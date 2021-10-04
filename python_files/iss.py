@@ -4,7 +4,7 @@
 @author Corentin GOETGHEBEUR (SNS 2023)
 Ce fichier exécute le jeu d'instruction correspondant au fichier binaire fourni en argument.
 """
-#a
+
 import sys
 from VM import VM
 from Memory import Memory, Cache
