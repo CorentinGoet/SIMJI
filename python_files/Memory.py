@@ -1,7 +1,7 @@
 """
+@author Corentin GOETGHEBEUR (SNS 2023)
 Fichier contenant les classes de modélisation de la mémoire.
 """
-
 
 
 class Memory:
@@ -9,7 +9,6 @@ class Memory:
     def __init__(self, size=1024):
         self.size = size
         self.mem = [0] * self.size
-
 
     def write(self, address, data):
         """
@@ -97,7 +96,6 @@ class Memory:
         print(s)
 
 
-
 class Cache:
     """
     Classe modélisant un cache à correspondance directe.
@@ -107,6 +105,11 @@ class Cache:
     """
 
     def __init__(self, memory, size=16):
+        """
+        Constructeur de la classe cache.
+        :param memory: Mémoire source
+        :param size: Nombre de lignes (Ne changer la valeur par défaut que si vous êtes sûr de ce que vous faites.)
+        """
         self.nb_lignes = size
         self.nb_blocs = 8
         self.lines = []
@@ -114,6 +117,10 @@ class Cache:
         self.memory = memory
 
     def setup(self):
+        """
+        Méthode de construction des lignes du cache.
+        :return: None
+        """
         for i in range(self.nb_lignes):
             l = Line_cache()
             self.lines.append(l)

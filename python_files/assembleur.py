@@ -1,3 +1,8 @@
+"""
+@author Corentin GOETGHEBEUR
+Ce programme contient la modélisation du traducteur asm -> hex.
+"""
+
 class Assembleur:
 
     def __init__(self, instr_file_name):
@@ -6,8 +11,10 @@ class Assembleur:
         self.oppListNew = ['stop', 'add', 'sub', 'mul', 'div', 'and', 'or', 'xor', 'shl', 'shr', 'slt', 'sle', 'seq', 'load', 'store', 'jmp', 'braz', 'branz', 'scall']
         self.instrList = self.get_instr()
         self.removeComments()
-        self.labels = self.get_labels()
-        #self.removeComments()
+        self.labels = self.get_labels()     # !! Attention !!
+                                            # Cette méthode doit absolument être appelée APRES removeComments
+                                            # sinon, les labels risquent de renvoyer à des lignes incohérentes.
+
 
     def get_labels(self):
         """
@@ -32,8 +39,11 @@ class Assembleur:
 
     def removeComments(self):
         """
-        Supprime les commentaires du fichier assembleur.
+        Méthode de formatage des chaines de caractères de la liste d'instructions.
+
+        Supprime les commentaires.
         Sont considérées comme commentaires les parties de lignes situées après ; ou #.
+        Supprime également les lignes vides, les
         :return:None
         """
 
@@ -82,6 +92,10 @@ class Assembleur:
             self.instrList.remove("\n")
 
     def get_instr(self):
+        """
+        Méthode de lecture du fichier contenant le programme assembleur.
+        :return: liste de chaine de caractères des instructions.
+        """
         f = open(self.instr_file_name, 'r')
         l = f.readlines()
         f.close()
@@ -91,7 +105,11 @@ class Assembleur:
         return l
 
     def get_opp(self, n):
-
+        """
+        Méthode qui accède à l'opération n depuis la liste de chaine de caractères.
+        :param n: numéro de ligne
+        :return: numero de l'operation
+        """
         word = self.instrList[n]
         oppTxt = word.split(" ")[0]
 
@@ -106,7 +124,6 @@ class Assembleur:
         except Exception as e:
             pass
 
-
         # essai avec la syntaxe minuscule
         try:
             ind = self.oppListNew.index(oppTxt)
@@ -115,6 +132,12 @@ class Assembleur:
         return ind
 
     def get_regs(self, n, opp):
+        """
+        Récupère les arguments dans la chaine de caractères (registres, nombres ...)
+        :param n: numero de ligne
+        :param opp: numero d'operation
+        :return: (argument1, argument2, ...)
+        """
         word = self.instrList[n]
         if opp != 0:
             tmp = word.split(" ")
@@ -177,12 +200,12 @@ class Assembleur:
         else:
             return 0
 
-
-
-
-
-
     def getInstrNum(self, n):
+        """
+        Méthode de traduction de la chaine de caractère au nombre de l'instruction.
+        :param n: numero de ligne
+        :return: instruction (entier)
+        """
         opp = self.get_opp(n)
         regs = self.get_regs(n, opp)
         if opp == 0:
@@ -228,6 +251,12 @@ class Assembleur:
 
 
     def writeInstr(self, instr, n):
+        """
+        Méthode d'écriture des instructions en hexadécimal dans le fichier instructions.hex.
+        :param instr: instruction
+        :param n: numero de ligne
+        :return: None
+        """
 
         if n == 0:
             f = open("../instruction_files/instructions.hex", 'w')
@@ -237,6 +266,13 @@ class Assembleur:
         f.close()
 
     def writeInstr2(self, instr, n, outputFile):
+        """
+        Méthode d'écriture dans un fichier des instructions hexadécimales.
+        :param instr: Instructions
+        :param n: Numero de ligne
+        :param outputFile: Nom de fichier de sortie.
+        :return: None
+        """
         f = open(outputFile, 'a')
         f.write(str(hex(n)) + " " + str(hex(instr)) + " " + "\n")
         f.close()

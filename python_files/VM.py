@@ -1,9 +1,17 @@
-import Memory
+"""
+@author Corentin GOETGHEBEUR (SNS 2023)
+Ce programme contient la modélisation de l'iss.
+"""
 
 
 class VM:
 
     def __init__(self, programFile, cache):
+        """
+        Constructeur de la classe VM.
+        :param programFile: nom du programme hexadécimal à executer.
+        :param cache: Objet cache servant à l'execution
+        """
         self.regs = [0] * 32  # 32 registers
         self.prog = self.progLoad(programFile)
         self.pc = 0
@@ -12,6 +20,11 @@ class VM:
 
 
     def progLoad(self, fileName):
+        """
+        Charge les instructions du programme dans une liste de chaines de caractères.
+        :param fileName: Nom du programme à charger
+        :return: Liste d'instructions
+        """
         f = open(fileName)
         instrList = f.readlines()
 
@@ -20,11 +33,20 @@ class VM:
         return instrList
 
     def fetch(self):
+        """
+        Méthode d'accès à la mémoire de programme modélisée par une liste.
+        :return: instruction suivante dans l'execution.
+        """
         instr = self.prog[self.pc]
         self.pc += 1
         return instr
 
     def decode(self, instr):
+        """
+        Méthode de reconstruction de l'instruction hexadécimale.
+        :param instr: instruction
+        :return: Numéro de l'opération, (argument1, argument 2, ...)
+        """
         instrNum = (instr & (0B11111 << 27)) >> 27
 
         if instrNum == 0:
@@ -38,8 +60,6 @@ class VM:
             binary_string_o = bin(o)[2:].rjust(15,'0')
             if binary_string_o[0] == '1':
                 o -= (1 << 15)
-
-
             return instrNum, (r_a, isANum, o, r_b)
 
         elif instrNum == 15:
@@ -58,10 +78,13 @@ class VM:
             a = instr & ((1 << 26) - 1)
             return instrNum, a
 
-
-
     def eval(self, opp, regs):
-
+        """
+        Méthode d'exécution de l'instruction sur les registres.
+        :param opp: Opération
+        :param regs: arguments (Ex: R_a, o, R_b)
+        :return: None
+        """
         if opp == 0:
             self.running = 0
         elif 1 <= opp <= 14:
@@ -74,7 +97,7 @@ class VM:
             elif opp == 2:
                 self.regs[r_b] = self.regs[r_a] - o
             elif opp == 3:
-                self.regs[r_b] =self.regs[r_a] * o
+                self.regs[r_b] = self.regs[r_a] * o
             elif opp == 4:
                 self.regs[r_b] = self.regs[r_a] // o
             elif opp == 5:
@@ -120,6 +143,10 @@ class VM:
                 self.regs[1] = int(input("R1 : "))
 
     def run(self):
+        """
+        Méthode d'execution de l'iss.
+        :return: None
+        """
         self.running = True
         while self.running:
             i = self.pc
