@@ -1,5 +1,6 @@
-ADD R0,-2,R1
+ADD R0,-2,R1 # ceci est un test de commentaire
 ADD R0,1,R2
+; ceci est un autre commentaire
 BRAZ R1,4
 ADD R2,3,R1
 L1: ADD R2,4,R2

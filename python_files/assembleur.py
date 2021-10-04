@@ -4,6 +4,7 @@ class Assembleur:
         self.instr_file_name = instr_file_name
         self.oppList = ['STOP', 'ADD', 'SUB', 'MULT', 'DIV', 'AND', 'OR', 'XOR', 'SHL', 'SHR', 'SLT', 'SLE', 'SEQ', 'LOAD', 'STORE', 'JMP', 'BRAZ', 'BRANZ', 'SCALL']
         self.instrList = self.get_instr()
+        self.removeComments()
         self.labels = self.get_labels()
 
     def get_labels(self):
@@ -20,6 +21,51 @@ class Assembleur:
                 self.instrList[ind] = self.instrList[ind][len(firstWord) +1:]  # supprime le label de la ligne
 
         return labelDict
+
+    def removeComments(self):
+        """
+        Supprime les commentaires du fichier assembleur.
+        Sont considérées comme commentaires les parties de lignes situées après ; ou #.
+        :return:None
+        """
+
+        for i in range(len(self.instrList)):
+
+            # essai de commentaire avec #
+            try:
+                instr = self.instrList[i]
+                ind = instr.index('#')
+                instr = instr[:ind]
+                self.instrList[i] = instr
+
+            except Exception as e:
+                pass
+
+            # commentaires en ;
+            try:
+                instr = self.instrList[i]
+                ind = instr.index(';')
+                instr = instr[:ind]
+                self.instrList[i] = instr
+            except Exception as e:
+                pass
+
+            # suppression des espaces en fin de ligne
+
+        for i in range(len(self.instrList)):
+
+            instr = self.instrList[i]
+            while len(instr) > 0 and instr[-1] == ' ':
+                instr = instr[:-1]
+            self.instrList[i] = instr
+
+        # suppression des lignes vides
+        for instr in self.instrList:
+            if instr == "":
+                self.instrList.remove(instr)
+
+
+
 
 
     def get_instr(self):
