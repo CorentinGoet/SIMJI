@@ -2,7 +2,7 @@
 @author Corentin GOETGHEBEUR (SNS 2023)
 Ce programme contient la modélisation de l'iss.
 """
-
+import time
 
 class VM:
 
@@ -145,12 +145,21 @@ class VM:
     def run(self):
         """
         Méthode d'execution de l'iss.
-        :return: None
+        :return: (Nombre d'opérations effectuées, temps total d'exécution, nombre d'opérations par secondes
         """
+        t_ini = time.time()
+        print(t_ini)
+        nb_op = 0   # compteur d'opérations
         self.running = True
         while self.running:
             i = self.pc
             instr = self.fetch()
             opp, regs = self.decode(instr)
             self.eval(opp, regs)
+            nb_op += 1
+
+        print(time.time())
+        t_op = time.time() - t_ini
+        print(t_op)
+        return nb_op, t_op, nb_op / t_op
 

@@ -40,11 +40,13 @@ if __name__ == '__main__':
                 cache = Cache(dataMem)
                 print("Exécution des instructions du fichier {} ...".format(inputFile))
                 vm = VM(inputFile, cache)
-                vm.run()
+                res = vm.run()
                 print("Ecriture du fichier de mémoire ...")
                 vm.cache.memory.writeMem("../output_files/memoire.hex")
 
-                print("Exécution terminée")
+                print(("Exécution terminée. Nombre d'opérations : {}, "+
+                       "Temps d'exécution : {} secondes, " +
+                       "Nombre d'opérations par secondes : {}").format(res[0], res[1], res[2]))
 
             except FileNotFoundError:
                 print("Fichier introuvable.")
@@ -63,7 +65,7 @@ if __name__ == '__main__':
                 cache = Cache(dataMem)
                 print("Exécution des instructions du fichier {} ...".format(inputFile))
                 vm = VM(inputFile, cache)
-                vm.run()
+                res = vm.run()
                 print("Ecriture du fichier de mémoire ...")
                 vm.cache.memory.writeMem("../output_files/memoire.hex")
 
@@ -74,7 +76,9 @@ if __name__ == '__main__':
                 elif 'm' in sys.argv[2]:
                     vm.cache.memory.displayMem()
 
-                print("Exécution terminée")
+                print(("Exécution terminée. Nombre d'opérations : {}, " +
+                       "Temps d'exécution : {} secondes, " +
+                       "Nombre d'opérations par secondes : {}").format(res[0], res[1], res[2]))
 
             except FileNotFoundError:
                 print("Fichier introuvable.")
@@ -93,17 +97,19 @@ if __name__ == '__main__':
                 cache = Cache(dataMem)
                 print("Exécution des instructions du fichier {} ...".format(inputFile))
                 vm = VM(inputFile, cache)
-                vm.run()
+                res = vm.run()
                 print("Ecriture du fichier de mémoire ...")
                 vm.cache.memory.writeMem("../output_files/memoire.hex")
 
-                print("Exécution terminée")
+                print(("Exécution terminée. Nombre d'opérations : {}, " +
+                       "Temps d'exécution : {} secondes, " +
+                       "Nombre d'opérations par secondes : {}").format(res[0], res[1], res[2]))
 
             except FileNotFoundError:
                 print("Fichier introuvable.")
-            except Exception as e:
-                print("Erreur d'execution.")
-                print(e)
+            #except Exception as e:
+             #   print("Erreur d'execution.")
+              #  print(e)
 
     elif len(sys.argv) == 4:
         try:
@@ -116,7 +122,7 @@ if __name__ == '__main__':
             cache = Cache(dataMem)
             print("Exécution des instructions du fichier {} ...".format(inputFile))
             vm = VM(inputFile, cache)
-            vm.run()
+            res = vm.run()
             print("Ecriture du fichier de mémoire ...")
             vm.cache.memory.writeMem("../output_files/memoire.hex")
 
@@ -127,7 +133,9 @@ if __name__ == '__main__':
             elif 'm' in sys.argv[3]:
                 vm.cache.memory.displayMem()
 
-            print("Exécution terminée")
+            print(("Exécution terminée. Nombre d'opérations : {}, " +
+                   "Temps d'exécution : {} secondes, " +
+                   "Nombre d'opérations par secondes : {}").format(res[0], res[1], res[2]))
 
         except FileNotFoundError:
             print("Fichier introuvable.")
