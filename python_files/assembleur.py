@@ -273,7 +273,10 @@ class Assembleur:
         :param outputFile: Nom de fichier de sortie.
         :return: None
         """
-        f = open(outputFile, 'a')
+        if n==0:
+            f = open(outputFile, 'w')
+        else:
+            f = open(outputFile, 'a')
         f.write(str(hex(n)) + " " + str(hex(instr)) + " " + "\n")
         f.close()
 

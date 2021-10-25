@@ -6,4 +6,5 @@ Options:
     -h, --help      Displays help menu
     -d, --data      Specifies an initial data file
     -c, --cache     Displays cache after execution
-    -d, --debug     Debug mode (wait between each step)
+    -m, --memory    Display data memory after execution
+    --debug         Debug mode (wait between each step)

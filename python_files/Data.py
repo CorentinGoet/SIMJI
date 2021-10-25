@@ -4,7 +4,7 @@ Fichier contenant les classes de modélisation de la mémoire.
 """
 
 
-class Memory:
+class Storage:
 
     def __init__(self, size=1024):
         self.size = size
@@ -68,7 +68,7 @@ class Memory:
 
     def __str__(self):
         s = "#"*50 + "\n"
-        s += "---------   Memory   --------- \n"
+        s += "---------   Storage   --------- \n"
         s += "Address".ljust(9, ' ') + "Value \n"
         for i in range(self.size):
             s += str(hex(i)).ljust(9, ' ')
@@ -83,7 +83,7 @@ class Memory:
         :return: None
         """
         s = "#" * 50 + "\n"
-        s += "---------   Memory   --------- \n"
+        s += "---------   Storage   --------- \n"
         s += "Address".ljust(9, ' ') + "Value \n"
         for i in range(min(self.size, n)):
             s += str(hex(i)).ljust(9, ' ')

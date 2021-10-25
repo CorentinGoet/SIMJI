@@ -7,7 +7,7 @@ Ce fichier exécute le jeu d'instruction correspondant au fichier binaire fourni
 
 import sys
 from VM import VM
-from Memory import Memory, Cache
+from Data import Storage, Cache
 
 if __name__ == '__main__':
 
@@ -35,7 +35,7 @@ if __name__ == '__main__':
             try:
                 inputFile = sys.argv[1]
                 print("Création de la mémoire ...")
-                dataMem = Memory()
+                dataMem = Storage()
                 print("Création du cache ...")
                 cache = Cache(dataMem)
                 print("Exécution des instructions du fichier {} ...".format(inputFile))
@@ -60,7 +60,7 @@ if __name__ == '__main__':
             try:
                 inputFile = sys.argv[1]
                 print("Création de la mémoire ...")
-                dataMem = Memory()
+                dataMem = Storage()
                 print("Création du cache ...")
                 cache = Cache(dataMem)
                 print("Exécution des instructions du fichier {} ...".format(inputFile))
@@ -91,7 +91,7 @@ if __name__ == '__main__':
                 inputFile = sys.argv[1]
                 memFile = sys.argv[2]
                 print("Chargement de la mémoire ...")
-                dataMem = Memory()
+                dataMem = Storage()
                 dataMem.loadMem(memFile)
                 print("Création du cache ...")
                 cache = Cache(dataMem)
@@ -116,7 +116,7 @@ if __name__ == '__main__':
             inputFile = sys.argv[1]
             memFile = sys.argv[2]
             print("Chargement de la mémoire ...")
-            dataMem = Memory()
+            dataMem = Storage()
             dataMem.loadMem(memFile)
             print("Création du cache ...")
             cache = Cache(dataMem)

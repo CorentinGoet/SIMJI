@@ -5,7 +5,8 @@
 
 import sys
 from assembleur import Assembleur
-import VM
+from Data import Storage, Cache
+from VM import VM
 import time
 
 
@@ -54,22 +55,11 @@ class Interface:
         Run asssembly program.
         :return: None
         """
-        if self.nb_params == 2:     # Only given argument was assemble
+        if self.nb_params == 2 or self.params[2] in ['-h', '--help']:     # Only given argument was assemble
             self.display_help('assemble')
         else:
 
-            if self.nb_params == 4:
-                print("Unknown or misused parameters have been ignored.")
-
-            if self.nb_params == 5:
-                p1 = self.params[3]  # -o ou --output en fonctionnement normal
-                p2 = self.params[4]  # nom du fichier de sortie
-                if p1 not in ['-o', '--output']:
-                    raise Exception('Unkown parameter or misused parameter: {}'.format(p1))
-                output_file = p2
-            else:
-                output_file = "../instruction_files/instructions.hex"
-
+            output_file = self.params_assemble()
 
             file_name = self.params[2]
             try:
@@ -89,13 +79,97 @@ class Interface:
                 print("Execution error.")
                 print(e)
 
+    def params_assemble(self):
+        """
+        Parameters management for asm / assemble.
+        :return: output_file
+        """
+        if self.nb_params == 4:
+            print("Unknown or misused parameters have been ignored.")
+
+        if self.nb_params == 5:
+            p1 = self.params[3]  # -o ou --output en fonctionnement normal
+            p2 = self.params[4]  # nom du fichier de sortie
+            if p1 not in ['-o', '--output']:
+                raise Exception('Unkown parameter or misused parameter: {}'.format(p1))
+            output_file = p2
+        else:
+            output_file = "../instruction_files/instructions.hex"
+        return output_file
+
     def run_execute(self):
         """
         Run iss.
         :return:None
         """
-        if self.nb_params == 2:     # Only given parameter is execute
+        if self.nb_params == 2 or self.params[2] in ['-h', '--help']:     # given parameter is only execute or execute -h
             self.display_help('execute')
+
+        else:
+            try:
+                # parameters recognition
+                instruction_file = self.params[2]
+                data_file, cache_display, memory_display, debug = self.params_exec()
+
+                # Data storage creation
+                dataMem = Storage()
+                if data_file is None:
+                    print("Creating data storage ...")
+                else:
+                    print("Loading data storage ...")
+                    dataMem.loadMem(data_file)
+
+                print("Creating cache ...")
+                cache = Cache(dataMem)
+
+                # execution
+                print("Starting ISS ...")
+                vm = VM(instruction_file, cache)
+                print("Computing instructions from {}...".format(instruction_file))
+                res = vm.run()
+                print("Writing data file ...")
+                vm.cache.memory.writeMem("../output_files/memoire.hex")
+                if cache_display:
+                    print(vm.cache)
+                if memory_display:
+                    print(vm.cache.memory)
+
+            except FileNotFoundError:
+                print('Instruction file not found.')
+            #except Exception as e:
+            #   print("Execution error.")
+            #   print(e)
+
+
+    def params_exec(self):
+        """
+        Parameters management for iss / execute.
+        :return: [data_input_file, cache_display (bool), memory_display (bool), debug (bool)]
+        """
+        if '-d' in self.params:
+            data_id = self.params.index('-d')
+            try:
+                data_file = open(self.params[data_id + 1])
+            except FileNotFoundError:
+                raise Exception("Data file not found.")
+
+        if '--data' in self.params:
+            data_id = self.params.index('-d')
+            try:
+                data_file = open(self.params[data_id + 1])
+            except FileNotFoundError:
+                raise Exception("Data file not found.")
+
+        if not ('-d' in self.params or '--data' in self.params):
+            data_file = None
+
+        cache_display = '-c' in self.params or '--cache' in self.params
+        memory_display = '-m' in self.params or '--memory' in self.params
+        debug = '-d' in self.params or '--debug' in self.params
+
+        return [data_file, cache_display, memory_display, debug]
+
+
 
 
 
@@ -122,7 +196,7 @@ class Interface:
                 self.run_assemble()
 
             elif p == 'execute':
-                print('not implemented yet.')
+                self.run_execute()
 
             else:   # error message
                 print("Syntax error : Unknown parameter")
