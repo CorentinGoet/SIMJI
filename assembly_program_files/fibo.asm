@@ -1,3 +1,4 @@
+# Corentin GOETGHEBEUR (SNS 2023)
 # programme de calcule du N-eme terme de la suite de Fibonacci
 # Le nombre N doit être stocké en mémoire à l'adresse 0
 

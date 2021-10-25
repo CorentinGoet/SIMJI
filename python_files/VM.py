@@ -158,8 +158,6 @@ class VM:
             self.eval(opp, regs)
             nb_op += 1
 
-        print(time.time())
         t_op = time.time() - t_ini
-        print(t_op)
         return nb_op, t_op, nb_op / t_op
 
