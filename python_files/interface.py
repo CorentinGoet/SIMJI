@@ -225,10 +225,6 @@ class Interface:
 
 
 
-
-
-
-
 if __name__ == '__main__':
     title = "../Ressources/interface_files/title.txt"
     help = "../Ressources/interface_files/help.txt"
