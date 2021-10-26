@@ -1,0 +1,6 @@
+############################################
+Performances:
+    Number of operations executed: {}
+    Run time: {}
+    Number of operations per second: {}
+############################################

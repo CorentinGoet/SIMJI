@@ -3,6 +3,6 @@ SIMJI assemble help:
     simji assemble [assemly_file.asm] [options]
 
 Options:
-    -h, --help      Displays help menu
+    -h, --help      Display help menu
     -o --output     Specifies an output file
                     (default is instruction_files/instructions.hex)

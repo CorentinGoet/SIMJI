@@ -3,8 +3,9 @@ SIMJI execute help:
     simji execute [hex_file.hex] [options]
 
 Options:
-    -h, --help      Displays help menu
+    -h, --help      Display help menu
     -d, --data      Specifies an initial data file
-    -c, --cache     Displays cache after execution
+    -c, --cache     Display cache after execution
     -m, --memory    Display data memory after execution
+    -p              Display performance analysis
     --debug         Debug mode (wait between each step)

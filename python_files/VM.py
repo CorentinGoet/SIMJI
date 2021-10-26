@@ -17,6 +17,7 @@ class VM:
         self.pc = 0
         self.running = False
         self.cache = cache
+        self.perf = []
 
 
     def progLoad(self, fileName):
@@ -148,6 +149,7 @@ class VM:
         :return: (Nombre d'opérations effectuées, temps total d'exécution, nombre d'opérations par secondes
         """
         t_ini = time.time()
+        print(t_ini)
         nb_op = 0   # compteur d'opérations
         self.running = True
         while self.running:
@@ -157,6 +159,8 @@ class VM:
             self.eval(opp, regs)
             nb_op += 1
 
-        #t_op = time.time() - t_ini
-        return
+        t_op = time.time() - t_ini
+        print(t_op)
+        self.perf = nb_op, t_op
+
 

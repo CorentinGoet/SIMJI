@@ -22,6 +22,7 @@ class Interface:
         self.help = self.read_file("../interface_files/help.txt")
         self.help_asm = self.read_file("../interface_files/help_asm.txt")
         self.help_iss = self.read_file("../interface_files/help_iss.txt")
+        self.perf = self.read_file("../interface_files/perf.txt")
 
     def read_file(self, title_file):
         """
@@ -49,6 +50,16 @@ class Interface:
             print(self.help_asm)
         elif program == 'execute':
             print(self.help_iss)
+
+    def display_perf(self, nb_op, t_op):
+        """
+        Print performances
+        :param nb_op: number of operations done
+        :param t_op: run time
+        :return: None
+        """
+        s = self.perf.format(nb_op, t_op, round(nb_op/t_op))
+        print(s)
 
     def run_assemble(self):
         """
@@ -109,7 +120,7 @@ class Interface:
             try:
                 # parameters recognition
                 instruction_file = self.params[2]
-                data_file, cache_display, memory_display, debug = self.params_exec()
+                data_file, cache_display, memory_display, debug, perf = self.params_exec()
 
                 # Data storage creation
                 dataMem = Storage()
@@ -117,6 +128,7 @@ class Interface:
                     print("Creating data storage ...")
                 else:
                     print("Loading data storage ...")
+                    print(data_file)
                     dataMem.loadMem(data_file)
 
                 print("Creating cache ...")
@@ -133,6 +145,13 @@ class Interface:
                     print(vm.cache)
                 if memory_display:
                     print(vm.cache.memory)
+                if perf:
+                    try:
+                        nb_op, t_op = vm.perf
+                        self.display_perf(nb_op, t_op)
+                    except ZeroDivisionError:
+                        print("Runtime too short to display performances.")
+
 
             except FileNotFoundError:
                 print('Instruction file not found.')
@@ -144,19 +163,19 @@ class Interface:
     def params_exec(self):
         """
         Parameters management for iss / execute.
-        :return: [data_input_file, cache_display (bool), memory_display (bool), debug (bool)]
+        :return: [data_input_file, cache_display (bool), memory_display (bool), debug (bool), perf (bool)]
         """
         if '-d' in self.params:
             data_id = self.params.index('-d')
             try:
-                data_file = open(self.params[data_id + 1])
+                data_file = self.params[data_id + 1]
             except FileNotFoundError:
                 raise Exception("Data file not found.")
 
         if '--data' in self.params:
             data_id = self.params.index('-d')
             try:
-                data_file = open(self.params[data_id + 1])
+                data_file = self.params[data_id + 1]
             except FileNotFoundError:
                 raise Exception("Data file not found.")
 
@@ -166,8 +185,9 @@ class Interface:
         cache_display = '-c' in self.params or '--cache' in self.params
         memory_display = '-m' in self.params or '--memory' in self.params
         debug = '-d' in self.params or '--debug' in self.params
+        perf = '-p' in self.params
 
-        return [data_file, cache_display, memory_display, debug]
+        return [data_file, cache_display, memory_display, debug, perf]
 
 
 
