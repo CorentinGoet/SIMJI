@@ -3,4 +3,9 @@ Performances:
     Number of operations executed: {}
     Run time: {}
     Number of operations per second: {}
+
+Data storage performances:
+    (learn more in README.md)
+    With cache: {} cycles
+    Without cache: {} cycles
 ############################################

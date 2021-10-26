@@ -115,6 +115,8 @@ class Cache:
         self.lines = []
         self.setup()
         self.memory = memory
+        self.perf_counter = 0
+        self.perf_counter_cache = 0
 
     def setup(self):
         """
@@ -158,6 +160,14 @@ class Cache:
             address_min = (tag << 7) + (index << 3)   # adresse du premier bloc
             line.blocs = self.memory.burst_read(address_min, self.nb_blocs)
             line.tag = tag
+
+            # mesure de perf
+            self.perf_counter_cache += 100
+            self.perf_counter += 100
+        else:
+            self.perf_counter += 10
+            self.perf_counter_cache += 100
+
 
         return line.blocs[b]
 

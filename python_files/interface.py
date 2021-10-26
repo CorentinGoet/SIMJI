@@ -51,14 +51,17 @@ class Interface:
         elif program == 'execute':
             print(self.help_iss)
 
-    def display_perf(self, nb_op, t_op):
+    def display_perf(self, nb_op, t_op, data_op, data_op_cache):
         """
         Print performances
         :param nb_op: number of operations done
         :param t_op: run time
         :return: None
         """
-        s = self.perf.format(nb_op, t_op, round(nb_op/t_op))
+        perf = round(nb_op / t_op)  # Number of operations per second
+        data_perf = nb_op + data_op
+        data_perf_cache = nb_op + data_op_cache
+        s = self.perf.format(nb_op, t_op, perf, data_perf, data_perf_cache)
         print(s)
 
     def run_assemble(self):
@@ -147,8 +150,8 @@ class Interface:
                     print(vm.cache.memory)
                 if perf:
                     try:
-                        nb_op, t_op = vm.perf
-                        self.display_perf(nb_op, t_op)
+                        nb_op, t_op, data_counter, data_counter_cache = vm.perf
+                        self.display_perf(nb_op, t_op, data_counter, data_counter_cache)
                     except ZeroDivisionError:
                         print("Runtime too short to display performances.")
 
@@ -188,10 +191,6 @@ class Interface:
         perf = '-p' in self.params
 
         return [data_file, cache_display, memory_display, debug, perf]
-
-
-
-
 
 
 

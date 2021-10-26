@@ -149,7 +149,6 @@ class VM:
         :return: (Nombre d'opérations effectuées, temps total d'exécution, nombre d'opérations par secondes
         """
         t_ini = time.time()
-        print(t_ini)
         nb_op = 0   # compteur d'opérations
         self.running = True
         while self.running:
@@ -160,7 +159,6 @@ class VM:
             nb_op += 1
 
         t_op = time.time() - t_ini
-        print(t_op)
-        self.perf = nb_op, t_op
+        self.perf = nb_op, t_op, self.cache.perf_counter, self.cache.perf_counter_cache
 
 
