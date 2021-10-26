@@ -3,10 +3,7 @@
 # author Corentin GOETGHEBEUR (SNS 2023)
 # Ce programme permet d'attribuer les permissions d'exécutions aux fichiers exécutables python et de les renommer.
 
-chmod +x python_files/asm.py
-chmod +x python_files/iss.py
+chmod +x python_files/simji.py
+mv python_files/simji.py python_files/simji
 
-mv python_files/asm.py python_files/asm
-mv python_files/iss.py python_files/iss
-
-echo "Installation terminée, rendez-vous dans le dossier python_files et essayez ./asm ou ./iss !"
+echo "Installation finished ! Go to python_files directory and try ./simji !"

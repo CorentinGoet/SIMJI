@@ -2,10 +2,10 @@
 
 from assembleur import Assembleur
 from VM import VM
-from Memory import Cache, Memory
+from Data import Cache, Storage
 
 asm = Assembleur("../assembly_program_files/test_scall.asm")
-cache = Cache(Memory())
+cache = Cache(Storage())
 
 print(cache)
 for i in range(len(asm.instrList)):

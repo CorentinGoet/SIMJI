@@ -1,0 +1,19 @@
+Syntax help:
+
+ simji assemble [assemly_file.asm] [options]
+ simji execute [hex_file.hex] [options]
+
+Options:
+
+    With assemble ...
+        -h, --help      Display help menu
+        -o --output     Specifies an output file
+                        (default is instruction_files/instructions.hex)
+
+    With execute ...
+        -h, --help      Display help menu
+        -d, --data      Specifies an initial data file
+        -c, --cache     Display cache after execution
+        -m, --memory    Display data memory after execution
+        -p              Display performance analysis
+        -d, --debug     Debug mode (wait between each step)
