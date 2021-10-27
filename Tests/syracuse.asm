@@ -10,23 +10,19 @@ Label_start:
     seq r2,1,r3
     branz r3,Label_end ; si r2 = 0, alors stop
     add r1,1,r1 ; On incrémente r1
-
     div r2,2,r4
     sub r2,r4,r4 ; r4 recoit r2 % 2
     braz r4,Label_pair
-
     # si r2 est impair
-    mult r2,3,r2
+    mul r2,3,r2
     add r2,1,r2 ; r2 recoit 3*r2 + 1
     jmp Label_start,r5
 
-Label_pair: ; si r2 est pair
+Label_pair:
     div r2,2,r2 ; r2 recoit r2 / 2
     jmp Label_start,r5
 
 Label_end:
     store r0,1,r1 ; On stocke le résultat à l'adresse 1
-    scall 1 ; On affiche le résultat
+    scall 1; On affiche le résultat
     stop
-
-

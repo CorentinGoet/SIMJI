@@ -89,9 +89,9 @@ class Interface:
             except FileNotFoundError as e:
                 print("File not found.")
                 print(e)
-            except Exception as e:
-                print("Execution error.")
-                print(e)
+            #except Exception as e:
+             #   print("Execution error.")
+              #  print(e)
 
     def params_assemble(self):
         """
@@ -141,7 +141,7 @@ class Interface:
                 print("Starting ISS ...")
                 vm = VM(instruction_file, cache)
                 print("Computing instructions from {}...".format(instruction_file))
-                res = vm.run()
+                res = vm.run(debug)
                 print("Writing data file ...")
                 vm.cache.memory.writeMem("../output_files/memoire.hex")
                 if cache_display:

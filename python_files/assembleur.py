@@ -91,6 +91,7 @@ class Assembleur:
         while "\n" in self.instrList:
             self.instrList.remove("\n")
 
+
     def get_instr(self):
         """
         Méthode de lecture du fichier contenant le programme assembleur.
@@ -110,6 +111,7 @@ class Assembleur:
         :param n: numéro de ligne
         :return: numero de l'operation
         """
+        pb1, pb2 = False, False     # mesure des erreurs de syntaxe
         word = self.instrList[n]
         oppTxt = word.split(" ")[0]
 
@@ -122,13 +124,16 @@ class Assembleur:
         try:
             ind = self.oppListOld.index(oppTxt)
         except Exception as e:
-            pass
+            pb1 = True
 
         # essai avec la syntaxe minuscule
         try:
             ind = self.oppListNew.index(oppTxt)
         except Exception as e:
-            pass
+            pb2 = True
+
+        if pb1 and pb2:
+            raise Exception("Syntax error on line {} : {}".format(n, word))
         return ind
 
     def get_regs(self, n, opp):

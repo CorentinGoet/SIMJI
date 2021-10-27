@@ -94,23 +94,23 @@ class VM:
                 o = self.regs[o]
 
             if opp == 1:
-                self.regs[r_b] = self.regs[r_a] + o
+                self.regs[r_b] = self.overflow_protection(self.regs[r_a] + o)
             elif opp == 2:
-                self.regs[r_b] = self.regs[r_a] - o
+                self.regs[r_b] = self.overflow_protection(self.regs[r_a] - o)
             elif opp == 3:
-                self.regs[r_b] = self.regs[r_a] * o
+                self.regs[r_b] = self.overflow_protection(self.regs[r_a] * o)
             elif opp == 4:
-                self.regs[r_b] = self.regs[r_a] // o
+                self.regs[r_b] = self.overflow_protection(self.regs[r_a] // o)
             elif opp == 5:
-                self.regs[r_b] = self.regs[r_a] & o
+                self.regs[r_b] = self.overflow_protection(self.regs[r_a] & o)
             elif opp == 6:
-                self.regs[r_b] = self.regs[r_a] | o
+                self.regs[r_b] = self.overflow_protection(self.regs[r_a] | o)
             elif opp == 7:
-                self.regs[r_b] = self.regs[r_a] ^ o
+                self.regs[r_b] = self.overflow_protection(self.regs[r_a] ^ o)
             elif opp == 8:
-                self.regs[r_b] = self.regs[r_a] << o
+                self.regs[r_b] = self.overflow_protection(self.regs[r_a] << o)
             elif opp == 9:
-                self.regs[r_b] = self.regs[r_a] >> o
+                self.regs[r_b] = self.overflow_protection(self.regs[r_a] >> o)
             elif opp == 10:
                 self.regs[r_b] = int(self.regs[r_a] < o)
             elif opp == 11:
@@ -133,17 +133,17 @@ class VM:
 
         elif opp == 17:
             r, a = regs
-            if not(self.regs[r] == 0):
+            if not (self.regs[r] == 0):
                 self.pc = a
 
         elif opp == 18:
             action = regs
-            if action == 1:
+            if action == 0:
                 print("R1 : ", self.regs[1])
             else:
-                self.regs[1] = int(input("R1 : "))
+                self.regs[1] = self.overflow_protection(int(input("R1 : ")))
 
-    def run(self):
+    def run(self, debug=False):
         """
         Méthode d'execution de l'iss.
         :return: (Nombre d'opérations effectuées, temps total d'exécution, nombre d'opérations par secondes
@@ -157,8 +157,24 @@ class VM:
             opp, regs = self.decode(instr)
             self.eval(opp, regs)
             nb_op += 1
+            if debug:
+                print("Program counter: ", self.pc)
+                print("Registers: ", self.regs)
+                print("Operation: ", opp)
+                print("Parameters: ", regs)
+                print("Operations computed: ", nb_op)
+                input()
 
         t_op = time.time() - t_ini
         self.perf = nb_op, t_op, self.cache.perf_counter, self.cache.perf_counter_cache
 
 
+    def overflow_protection(self, val):
+        """
+        Overflow protection, makes sure that no register has a value contained in 32 bits.
+        :param val: value
+        :return: value stored in 32-bits
+        """
+        limit = (1 << 32) - 1
+        val = val % limit
+        return val
