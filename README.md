@@ -1,8 +1,13 @@
-# ARCH
-Projet de conception d'une machine virtuelle.
+# SIMJI
 
-Réalisé en s'appuyant sur les cours d'architechture des ordinateurs et la page wikibooks VM in C (https://en.wikibooks.org/wiki/Creating_a_Virtual_Machine/Register_VM_in_C).
-```Python
+###Download
+You get download this project from [github](https://github.com/CorentinGoet/ARCH) or clone the project.
+```Bash
+git clone https://github.com/CorentinGoet/ARCH
+```
+###Install
+Go to the project directory and run the setup program.
+```Bash
 chmod +x setup.sh
 ./setup.sh
 ```
