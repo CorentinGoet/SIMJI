@@ -89,9 +89,9 @@ class Interface:
             except FileNotFoundError as e:
                 print("File not found.")
                 print(e)
-            #except Exception as e:
-             #   print("Execution error.")
-              #  print(e)
+            except Exception as e:
+                print("Execution error.")
+                print(e)
 
     def params_assemble(self):
         """
@@ -158,9 +158,9 @@ class Interface:
 
             except FileNotFoundError:
                 print('Instruction file not found.')
-            #except Exception as e:
-            #   print("Execution error.")
-            #   print(e)
+            except Exception as e:
+               print("Execution error.")
+               print(e)
 
 
     def params_exec(self):
