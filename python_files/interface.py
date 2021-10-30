@@ -108,7 +108,7 @@ class Interface:
                 raise Exception('Unkown parameter or misused parameter: {}'.format(p1))
             output_file = p2
         else:
-            output_file = "../instruction_files/instructions.hex"
+            output_file = "instruction_files/instructions.hex"
         return output_file
 
     def run_execute(self):
