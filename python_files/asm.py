@@ -6,7 +6,7 @@ Fichier python exécutable de traduction du code assembleur en binaire.
 """
 
 import sys
-from assembleur import Assembleur
+from python_files.assembleur import Assembleur
 
 if __name__ == "__main__":
     # gestion des arguments d'entrée

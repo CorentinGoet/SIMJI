@@ -5,7 +5,7 @@
 Main file for the project.
 """
 
-from interface import Interface
+from python_files.interface import Interface
 
 if __name__ == '__main__':
     i = Interface()

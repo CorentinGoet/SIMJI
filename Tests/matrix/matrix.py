@@ -11,7 +11,7 @@ if __name__ == '__main__':
     mem = Storage()
 
     n = 3
-    mat = np.random.randint(-10, 10, (n, n))
+    mat = np.random.randint(0, 10, (n, n))
     print(mat)
 
     # écriture du fichier de départ

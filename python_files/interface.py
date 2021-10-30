@@ -4,9 +4,9 @@
 """
 
 import sys
-from assembleur import Assembleur
-from Data import Storage, Cache
-from VM import VM
+from python_files.assembleur import Assembleur
+from python_files.Data import Storage, Cache
+from python_files.VM import VM
 import time
 
 
