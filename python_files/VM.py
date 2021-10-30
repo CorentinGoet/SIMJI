@@ -136,7 +136,7 @@ class VM:
 
         elif opp == 18:
             action = regs
-            if action == 0:
+            if action == 1:
                 print("R1 : ", self.regs[1])
             else:
                 self.regs[1] = self.overflow_protection(int(input("R1 : ")))
