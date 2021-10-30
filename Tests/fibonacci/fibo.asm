@@ -20,5 +20,6 @@ L1:
 
 #fin
 Label_end:
+    scall 1
     store r0,1,r1; on stocke la valeur de r1 dans la case mémoire 1
     stop
