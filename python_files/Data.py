@@ -224,3 +224,8 @@ class Line_cache:
         self.tag = 0
         self.blocs = [0]*8
 
+
+if __name__ == '__main__':
+    mem = Storage()
+    cache = Cache(mem)
+    print(cache.address_param(95))

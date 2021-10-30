@@ -58,9 +58,7 @@ class VM:
             isANum = (instr & (1 << 21)) >> 21
             o = (instr & (0B111111111111111 << 5)) >> 5
             r_b = instr & 0B1111
-            binary_string_o = bin(o)[2:].rjust(15,'0')
-            if binary_string_o[0] == '1':
-                o -= (1 << 15)
+            o = self.negatif(o)
             return instrNum, (r_a, isANum, o, r_b)
 
         elif instrNum == 15:
@@ -91,7 +89,7 @@ class VM:
         elif 1 <= opp <= 14:
             r_a, isANum, o, r_b = regs
             if isANum == 0:
-                o = self.regs[o]
+                o = self.negatif(self.regs[o])
 
             if opp == 1:
                 self.regs[r_b] = self.overflow_protection(self.regs[r_a] + o)
@@ -163,7 +161,7 @@ class VM:
                 print("Operation: ", opp)
                 print("Parameters: ", regs)
                 print("Operations computed: ", nb_op)
-                input()
+                time.sleep(1)
 
         t_op = time.time() - t_ini
         self.perf = nb_op, t_op, self.cache.perf_counter, self.cache.perf_counter_cache
@@ -175,6 +173,16 @@ class VM:
         :param val: value
         :return: value stored in 32-bits
         """
-        limit = (1 << 32) - 1
+        if (val > 0):
+            limit = (1 << 32) - 1
+        else:
+            limit = - ((1 << 32) - 1)
         val = val % limit
+
         return val
+
+    def negatif(self, o):
+        binary_string_o = bin(o)[2:].rjust(15, '0')
+        if binary_string_o[0] == '1':
+            o -= (1 << 15)
+        return o

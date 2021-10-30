@@ -187,7 +187,7 @@ class Interface:
 
         cache_display = '-c' in self.params or '--cache' in self.params
         memory_display = '-m' in self.params or '--memory' in self.params
-        debug = '-d' in self.params or '--debug' in self.params
+        debug = '--debug' in self.params
         perf = '-p' in self.params
 
         return [data_file, cache_display, memory_display, debug, perf]

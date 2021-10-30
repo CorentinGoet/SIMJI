@@ -5,7 +5,7 @@ Performances:
     Number of operations per second: {}
 
 Data storage performances:
-    (learn more in README.md)
+    (learn more in rapport.pdf)
     With cache: {} cycles
     Without cache: {} cycles
 ############################################

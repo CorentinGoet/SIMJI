@@ -9,11 +9,11 @@
     add r0,0,r1   ; i=0
 
 L5: slt  r1,r10,r2   ; i < N
-    braz r2, Label_end
+    braz r2,Label_end
     add  r0,0,r2   ; j=0
 
 L4: slt  r2,r10,r8   ; j < N
-    braz r8, L1    ; no?  goto L1
+    braz r8,L1    ; no?  goto L1
     add  r0,0,r4   ; yes? s=0
     add  r0,0,r5   ; k=0
 
