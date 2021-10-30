@@ -100,7 +100,7 @@ class Assembleur:
         f = open(self.instr_file_name, 'r')
         l = f.readlines()
         f.close()
-        f = open("../output_files/test.txt",'w')
+        f = open("output_files/test.txt",'w')
         f.write('')
         f.close()
         return l
@@ -264,9 +264,9 @@ class Assembleur:
         """
 
         if n == 0:
-            f = open("../instruction_files/instructions.hex", 'w')
+            f = open("instruction_files/instructions.hex", 'w')
         else:
-            f = open("../instruction_files/instructions.hex", 'a')
+            f = open("instruction_files/instructions.hex", 'a')
         f.write(str(hex(n)) + " " + str(hex(instr)) + " " + "\n")
         f.close()
 
