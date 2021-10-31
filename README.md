@@ -1,11 +1,11 @@
 # SIMJI
 
-###Download
-You get download this project from [github](https://github.com/CorentinGoet/ARCH) or clone the project.
+## Download
+You get download this project from [github](https://github.com/CorentinGoet/SIMJI) or clone the project.
 ```Bash
-git clone https://github.com/CorentinGoet/ARCH
+git clone https://github.com/CorentinGoet/SIMJI
 ```
-###Install
+## Install
 Go to the project directory and run the setup program.
 ```Bash
 chmod +x setup.sh
