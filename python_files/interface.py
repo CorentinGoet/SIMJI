@@ -7,6 +7,7 @@ import sys
 from python_files.assembleur import Assembleur
 from python_files.Data import Storage, Cache
 from python_files.VM import VM
+import os
 import time
 
 
@@ -18,11 +19,11 @@ class Interface:
     def __init__(self):
         self.params = sys.argv
         self.nb_params = len(self.params)
-        self.title = self.read_file("interface_files/title.txt")
-        self.help = self.read_file("interface_files/help.txt")
-        self.help_asm = self.read_file("interface_files/help_asm.txt")
-        self.help_iss = self.read_file("interface_files/help_iss.txt")
-        self.perf = self.read_file("interface_files/perf.txt")
+        self.title = self.read_file("../interface_files/title.txt")
+        self.help = self.read_file("../interface_files/help.txt")
+        self.help_asm = self.read_file("../interface_files/help_asm.txt")
+        self.help_iss = self.read_file("../interface_files/help_iss.txt")
+        self.perf = self.read_file("../interface_files/perf.txt")
 
     def read_file(self, title_file):
         """
@@ -108,7 +109,7 @@ class Interface:
                 raise Exception('Unkown parameter or misused parameter: {}'.format(p1))
             output_file = p2
         else:
-            output_file = "instruction_files/instructions.hex"
+            output_file = "../instruction_files/instructions.hex"
         return output_file
 
     def run_execute(self):
@@ -143,7 +144,7 @@ class Interface:
                 print("Computing instructions from {}...".format(instruction_file))
                 res = vm.run(debug)
                 print("Writing data file ...")
-                vm.cache.memory.writeMem("output_files/memoire.hex")
+                vm.cache.memory.writeMem("../output_files/memoire.hex")
                 if cache_display:
                     print(vm.cache)
                 if memory_display:
@@ -199,7 +200,7 @@ class Interface:
         Main method for execution.
         :return: int (0 if success, error number if failure)
         """
-
+        os.chdir("../python_files")
         res = 0
 
         if self.nb_params == 1:     # Only one parameter -> nothing was given to the program

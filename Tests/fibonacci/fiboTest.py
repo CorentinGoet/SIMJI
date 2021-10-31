@@ -2,7 +2,7 @@
 Programme de vérification du résultat de l'exécution de la suite de fibonacci
 """
 
-n = 10
+n = 15
 r1 = 0
 r2 = 1
 
