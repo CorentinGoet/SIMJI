@@ -264,9 +264,9 @@ class Assembleur:
         """
 
         if n == 0:
-            f = open("../instruction_files/instructions.hex", 'w')
+            f = open("instruction_files/instructions.hex", 'w')
         else:
-            f = open("../instruction_files/instructions.hex", 'a')
+            f = open("instruction_files/instructions.hex", 'a')
         f.write(str(hex(n)) + " " + str(hex(instr)) + " " + "\n")
         f.close()
 
