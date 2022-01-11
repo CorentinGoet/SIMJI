@@ -74,3 +74,9 @@ After the last step, the code will look like this:
 0x0001
 ```
 TODO: finish the table when the code is written
+
+## Tests and examples
+
+This package contains tests and examples. The unit tests for the classes format and translation are _testFormat.py_ and _testTranslation.py_
+
+This page explains how to write unit tests https://medium.com/@nathanpatnam/what-is-unit-testing-code-coverage-and-how-to-implement-and-use-them-in-python-a8f029558fe7

@@ -2,5 +2,7 @@
 @author Corentin Goetghebeur (github.com/CorentinGoet)
 """
 
-if __name__ == '__main__':
-    pass
+from format import Format
+from translation import Translation
+from testFormat import TestFormat
+from testTranslation import Translation
