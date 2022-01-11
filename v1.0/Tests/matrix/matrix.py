@@ -9,7 +9,7 @@ import numpy as np
 import os
 
 if __name__ == '__main__':
-    os.chdir("../matrix/")
+    os.chdir("/")
     mem = Storage()
 
     n = 3

@@ -7,8 +7,6 @@ import sys
 from python_files.assembleur import Assembleur
 from python_files.Data import Storage, Cache
 from python_files.VM import VM
-import os
-import time
 
 
 class Interface:
