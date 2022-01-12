@@ -1,0 +1,19 @@
+stop
+add r1,o,r2
+sub r1,o,r2
+mul r1,o,r2
+div r1,o,r2
+and r1,o,r2
+or r1,o,r2
+xor r1,o,r2
+shl r1,o,r2
+shr r1,o,r2
+slt r1,o,r2
+sle r1,o,r2
+seq r1,o,r2
+load r1,o,r2
+store r1,o,r2
+jmp o,r
+braz r,a
+branz r,a
+scall 0

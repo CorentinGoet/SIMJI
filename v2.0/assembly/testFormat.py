@@ -4,7 +4,10 @@ import os
 
 
 class TestFormat(unittest.TestCase):
-
+    """
+    @author Corentin Goetghebeur
+    Unit test class for the Format class.
+    """
     def setUp(self):
         # This is executed before each Method
         pass
