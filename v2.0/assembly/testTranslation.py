@@ -30,7 +30,22 @@ class TestTranslation(unittest.TestCase):
         for i in range(len(t.lines)):
             self.assertEquals(t.get_params(t.lines[i]), expected_params[i])
 
+    def test_encode(self):
+        """
+        Test method for encode, format_param, write_hex.
+        """
+        t = Translation("test_files/test_get_params.asm")
+        for line in t.lines:
+            t.hexlines.append(t.encode(line))
+        print(t.hexlines)
+        t.write_hex("test_files/output_test_encode.asm")
 
+        output_file = open("test_files/output_test_encode.asm")
+        ref_file = open("test_files/ref_test_encode.asm")
+        self.assertEqual(output_file.read(), ref_file.read())
+
+        output_file.close()
+        ref_file.close()
 
 
 if __name__ == '__main__':

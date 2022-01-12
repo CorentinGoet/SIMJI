@@ -101,6 +101,8 @@ class Translation:
             # scall: n at 0
             hexline += int(parameters['n'])
 
+        return hexline
+
     def format_param(self, o_param):
         """
         Sub-method for encode() to format parameters o.
@@ -117,8 +119,13 @@ class Translation:
         """
         Writes the hex lines in a file.
         """
+        file = open(filepath, 'w')
         for i in range(len(self.hexlines)):
+            file.write(str(hex(i)) + " " + str(hex(self.hexlines[i])) + "\n")
 
 
 if __name__ == '__main__':
     print("This python file is not meant to be executed on its own, please refer to README.md for more informations.")
+    t = Translation("test_files/test_get_params.asm")
+    for i in range(len(t.lines)):
+        t.hexlines.append(t.encode)
