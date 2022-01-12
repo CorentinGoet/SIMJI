@@ -167,10 +167,10 @@ class Format:
             if line.split(" ")[1] in ['jmp', 'braz', 'branz']:
                 nb, instruction, params = line.split(" ")
                 param1, param2 = params.split(",")
-                if instruction == 'jmp':
+                if instruction == 'jmp' and param1 in line_numbers.keys():
                     self.lines[i] = nb + " " + instruction + " " + str(line_numbers[param1]) + "," + param2
 
-                if instruction in ['braz', 'branz']:
+                if instruction in ['braz', 'branz'] and param2[:-1] in line_numbers.keys():
                     self.lines[i] = nb + " " + instruction + " " + param1 + "," + str(line_numbers[param2[:-1]]) + "\n"
 
             # remove the line number
