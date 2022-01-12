@@ -56,13 +56,13 @@ stop
 
 After the first step of reformatting, it looks like this:
 ```assembly
-0x1 add r0,3,r1
-0x2 add r0,6,r2
-0x3 add r0,2,r3
-0x5 sub r1,r2,r4
-0x6 mul r3,r4,r1
-0x7 scall 1
-0xA stop
+1 add r0,3,r1
+2 add r0,6,r2
+3 add r0,2,r3
+5 sub r1,r2,r4
+6 mul r3,r4,r1
+7 scall 1
+A stop
 ```
 
 The hex number in front of the line represents the line number before the reformatting.
