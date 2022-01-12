@@ -49,7 +49,30 @@ class Format:
         """
         This function removes anything after a '#' or ';' in all lines.
         """
-        pass
+        for i in range(len(self.lines)):
+            line = self.lines[i]
+            clean_line = line
+
+            # Try to find a comment with #
+            try:
+                ind = line.index('#')
+                clean_line = line[0:ind] + "\n"
+
+            except ValueError as e:
+                pass
+
+            # Try to find comment with ;
+            try:
+                ind = line.index(';')
+                clean_line = line[0:ind] + "\n"
+
+            except ValueError as e:
+                pass
+
+            # replace the line
+            self.lines[i] = clean_line
+
+
 
     def replace_labels(self):
         """
@@ -60,6 +83,8 @@ class Format:
 
 if __name__ == '__main__':
     print("This python file is not meant to be executed on its own, please refer to README.md for more informations.")
-    f = Format("examples/ex1.asm")
+    f = Format("test_files/test_remove_comments.asm")
+    f.remove_comments()
     f.number()
+    f.write_file("test_files/ref_test_remove_comments.asm")
     print(f.lines)
