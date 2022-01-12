@@ -136,18 +136,51 @@ class Format:
         """
         This function replaces the Labels in the assembly code instructions jump, braz and branz by their address.
         """
-        pass
+        nb_lines = len(self.lines)
+        for i in range(nb_lines):
+            # only look for jmp, braz and branz
+            line = self.lines[i]
+            if line.split(" ")[1] in ['jmp', 'braz', 'branz']:
+                nb, instruction, params = line.split(" ")
+                param1, param2 = params.split(",")
+                if instruction == 'jmp' and param1 in self.labels.keys():
+                    self.lines[i] = nb + " " + instruction + " " + str(self.labels[param1]) + "," + param2
 
+                if instruction in ['braz', 'branz'] and param2[:-1] in self.labels.keys():
+                    self.lines[i] = nb + " " + instruction + " " + param1 + "," + str(self.labels[param2[:-1]]) + "\n"
+
+    def rectify_numbers(self):
+        """
+        This method corrects the numbers in the jumps and branches.
+        The structure is very similar to replace labels
+        """
+        # Build the dict of (old line number => new)
+        line_numbers = {}
+        for i in range(len(self.lines)):
+            line = self.lines[i]
+            old_val = line.split(" ")[0]
+            line_numbers[old_val] = i
+
+        # Replace in the jumps and branches
+        for i in range(len(self.lines)):
+            line = self.lines[i]
+            if line.split(" ")[1] in ['jmp', 'braz', 'branz']:
+                nb, instruction, params = line.split(" ")
+                param1, param2 = params.split(",")
+                if instruction == 'jmp':
+                    self.lines[i] = nb + " " + instruction + " " + str(line_numbers[param1]) + "," + param2
+
+                if instruction in ['braz', 'branz']:
+                    self.lines[i] = nb + " " + instruction + " " + param1 + "," + str(line_numbers[param2[:-1]]) + "\n"
+
+            # remove the line number
+            line_list = self.lines[i].split(" ")[1:]
+            self.lines[i] = ""
+            for element in line_list:
+                self.lines[i] += element + " "
+            self.lines[i] = self.lines[i][:-1]
 
 
 if __name__ == '__main__':
     print("This python file is not meant to be executed on its own, please refer to README.md for more informations.")
-    f = Format("test_files/test_replace_labels.asm")
-    f.remove_comments()
-    f.number()
-    f.remove_blanks()
 
-    f.find_labels()
-    print(f.labels)
-    print(f.lines)
-    f.write_file("test_files/ref_test_find_labels.asm")

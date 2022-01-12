@@ -108,7 +108,51 @@ class TestFormat(unittest.TestCase):
         """
         Test method for replace_labels.
         """
-        pass
+        input_file_name = "test_files/test_replace_labels.asm"
+        output_file_name = "test_files/output_replace_labels.asm"
+        ref_file_name = "test_files/ref_test_replace_labels.asm"
+
+        f = Format(input_file_name)
+        f.number()
+        f.remove_comments()
+        f.remove_blanks()
+        f.find_labels()
+        f.replace_labels()
+        f.write_file(output_file_name)
+
+        output_file = open(output_file_name)
+        ref_file = open(ref_file_name)
+        self.assertEqual(ref_file.read(), output_file.read())
+
+        output_file.close()
+        ref_file.close()
+        os.remove(output_file_name)
+
+    def test_rectify_numbers(self):
+        """
+        Test method for rectify_numbers
+        """
+        input_file_name = "test_files/test_replace_labels.asm"
+        output_file_name = "test_files/output_rectify_numbers.asm"
+        ref_file_name = "test_files/ref_test_rectify_numbers.asm"
+
+        f = Format(input_file_name)
+        f.number()
+        f.remove_comments()
+        f.remove_blanks()
+        f.find_labels()
+        f.replace_labels()
+        f.rectify_numbers()
+        f.write_file(output_file_name)
+
+        output_file = open(output_file_name)
+        ref_file = open(ref_file_name)
+        self.assertEqual(ref_file.read(), output_file.read())
+
+        output_file.close()
+        ref_file.close()
+        os.remove(output_file_name)
+
 
 if __name__ == '__main__':
     unittest.main()
