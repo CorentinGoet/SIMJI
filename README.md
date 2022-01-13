@@ -70,8 +70,13 @@ This step is necessary in order to keep the jumps to specific lines to the right
 
 After the last step, the code will look like this:
 ```hex
-0x0000 
-0x0001
+0x0 0x8200061
+0x1 0x82000c2
+0x2 0x8200043
+0x3 0x10400044
+0x4 0x18c00081
+0x5 0x90000001
+0x6 0x0
 ```
 TODO: finish the table when the code is written
 
@@ -84,7 +89,8 @@ Each instruction is written in 32 bits:
 
 ## Tests and examples
 
-This package contains tests and examples. The unit tests for the classes format and translation are _testFormat.py_ and _testTranslation.py_
+This package contains tests and examples.
+The Unit tests for this package (_testFormat.py_ and _testTranslation.py_) are built using the _unittest_ library in python.
+The code coverage for these tests are 97% for the Format class and 94% for the Translation class.
 
-This page explains how to write unit tests https://medium.com/@nathanpatnam/what-is-unit-testing-code-coverage-and-how-to-implement-and-use-them-in-python-a8f029558fe7
 

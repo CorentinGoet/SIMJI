@@ -107,11 +107,13 @@ class Translation:
         """
         Sub-method for encode() to format parameters o.
         """
-        if o_param == 'r':
+        if o_param[0] == 'r':
             # if o is a register
             imm = 0
             o_param = o_param[1:]
+            print("register", o_param)
         else:
+            print("not register", o_param)
             imm = 1
         return imm, int(o_param)
 
@@ -126,6 +128,3 @@ class Translation:
 
 if __name__ == '__main__':
     print("This python file is not meant to be executed on its own, please refer to README.md for more informations.")
-    t = Translation("test_files/test_get_params.asm")
-    for i in range(len(t.lines)):
-        t.hexlines.append(t.encode)
